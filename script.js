@@ -68,7 +68,7 @@ listItem.appendChild(cont);
   //       year: "numeric",
   //       month: "numeric",
   //       day: "numeric"
-  //     });
+  //     }); 
 
   //     // Get the current time
   //     var time = currentDate.toLocaleTimeString("en-US", {
@@ -82,6 +82,12 @@ listItem.appendChild(cont);
   // studentInfo.appendChild(time);
   });
 }
+// Initialize the S3 client
+var s3 = new AWS.S3({
+  accessKeyId: 'AKIA36SH4LVGGSTZU5MF',
+  secretAccessKey: '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',
+  region: 'ap-northeast-2'
+});
 
 // Function to handle form submission
 function handleFormSubmit(event) {
@@ -97,32 +103,43 @@ function handleFormSubmit(event) {
   var name = nameInput.value;
   var studentNumber = studentNumberInput.value;
 
-  // Create a FileReader object to read the uploaded picture
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var pictureDataURL = e.target.result;
+  // Generate a unique key for the uploaded file
+  var filename = Date.now() + '-' + picture.name;
 
-    // Create a student object with the entered data
-    var student = {
-      picture: pictureDataURL,
-      name: name,
-      number: studentNumber
-    };
-
-    // Add the student to the students array
-    students.push(student);
-
-    // Clear form inputs
-    pictureInput.value = "";
-    nameInput.value = "";
-    studentNumberInput.value = "";
-
-    // Display updated student list
-    displayStudentList();
+  // Prepare the parameters for the S3 upload
+  var params = {
+    Bucket: 'facerecsejong',
+    Key: filename,
+    Body: picture,
   };
 
-  // Read the uploaded picture as a data URL
-  reader.readAsDataURL(picture);
+  console.log("About to upload")
+  // Perform the S3 upload
+  s3.upload(params, function(err, data) {
+    if (err) {
+      console.log('Error uploading file:', err);
+    } else {
+      console.log('File uploaded successfully:', data.Location);
+
+      // Create a student object with the entered data and the S3 file URL
+      var student = {
+        picture: data.Location,
+        name: name,
+        number: studentNumber
+      };
+
+      // Add the student to the students array
+      students.push(student);
+
+      // Clear form inputs
+      pictureInput.value = "";
+      nameInput.value = "";
+      studentNumberInput.value = "";
+
+      // Display updated student list
+      displayStudentList();
+    }
+  });
 }
 
 // Attach event listener to the form submit event
