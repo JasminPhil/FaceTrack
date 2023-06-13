@@ -1,88 +1,140 @@
 /* Basic styling */
-html, body {
-    margin : 0;
-    padding : 0;
-}
-.background {
-    position : absolute ;
-    display : block ;
-    top : 0;
-    left : 0;
-    z-index : 0;
-    
-}
+html,
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+h1 {
+  text-align: center;
+  color: #1aab8a;
+}
+h2 {
+  color: #1aab8a;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  padding: 10px 5px;
+}
+
+.window {
+  flex: 1;
+  border: 1px solid #1aab8a;
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Style for student list window */
+.student-list {
+  list-style: none;
+  padding: 0;
+}
+
+.student-item {
+  margin-bottom: 10px;
+}
+
+/* Style for picture upload and registration window */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-input {
+  margin-bottom: 10px;
+}
+
+li {
+  position: relative;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin: 25px;
+  border: 2px solid grey;
+}
+img {
+  max-width: 65px;
+  max-height: 65px;
+  transition: 0.5s ease;
+}
+img:hover {
+  transform: scale(1.5);
+}
+span {
+  display: block;
+}
+.check_mark {
+  width: 25px;
+  height: 25px;
+}
+.my-class {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+}
+.remove-button {
+  position: absolute;
+  right: 5px;
+}
+button {
+  background: #30ba9a;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  position: relative;
+  height: 2.5em;
+  font-size: 1em;
+  padding: 0 2em;
+  cursor: pointer;
+  transition: 800ms ease all;
+  outline: none;
+}
+button:hover {
+  background: #fff;
+  color: #1aab8a;
+}
+button:before,
+button:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background: #1aab8a;
+  transition: 400ms ease all;
+}
+button:after {
+  right: inherit;
+  top: inherit;
+  left: 0;
+  bottom: 0;
+}
+button:hover:before,
+button:hover:after {
+  width: 100%;
+  transition: 800ms ease all;
+}
+
+@media screen and (max-width: 1110px) {
   .container {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .window {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin: 10px;
-    width: 400px;
-    max-width: 100%;
-  }
-  
-  /* Style for student list window */
-  .student-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .student-item {
-    margin-bottom: 10px;
-  }
-  
-  /* Style for picture upload and registration window */
-  .upload-form {
     display: flex;
     flex-direction: column;
   }
-  
-  .upload-input {
-    margin-bottom: 10px;
-  }
-
-  li{
-    position: relative;
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    margin: 25px;
-    border: 2px solid grey;
-  }
-  img{
-    max-width: 65px;
-    max-height: 65px;
-    transition: .5s ease;
-  }
-  img:hover{
-    transform: scale(1.5);
-  }
-  span{
-    display: block;
-  }
-  .check_mark{
-    width: 25px;
-    height: 25px;
-  }
-  .my-class{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    position: absolute;
-    right: 10px;
-  }
-  
+}

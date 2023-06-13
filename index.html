@@ -1,33 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Student Management System</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
-</head>
-<body>
-  <h1>Student Management System</h1>
-  
-  <div class="container">
-    <div class="window" id="student-list-window">
-      <h2>Student List</h2>
-      <ul class="student-list" id="student-list"></ul>
-    </div>
-    
-    <div class="window" id="upload-window">
-      <h2>Register Student</h2>
-      <form class="upload-form" id="upload-form">
-        <input type="file" class="upload-input" id="picture-input" accept="image/*" required>
-        <input type="text" class="upload-input" id="name-input" placeholder="Student Name" required>
-        <input type="text" class="upload-input" id="student-number-input" placeholder="Student Number" required>
-        <button type="submit">Register</button>
-      </form>
-    </div>
-  </div>
+  <head>
+    <title>Student Management System</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+  </head>
+  <body>
+    <h1>Student Management System</h1>
 
-  <canvas class="background"></canvas>
-  
-  <!-- <script>
+    <div class="container">
+      <div class="window" id="student-list-window">
+        <h2>HCI Student List</h2>
+        <ul class="student-list" id="student-list"></ul>
+      </div>
+
+      <div class="window" id="upload-window">
+        <h2>Register Student</h2>
+        <form class="upload-form" id="upload-form">
+          <input
+            type="file"
+            class="upload-input"
+            id="picture-input"
+            accept="image/*"
+            required
+          />
+          <input
+            type="text"
+            class="upload-input"
+            id="name-input"
+            placeholder="Student Name"
+            required
+          />
+          <input
+            type="text"
+            class="upload-input"
+            id="student-number-input"
+            placeholder="Student Number"
+            required
+          />
+          <button type="submit">Register</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- <script>
     window.onload = function() {
       Particles.init({
         selector: '.background'
@@ -36,6 +52,6 @@
     };
   </script>
   <script src="particles.js-master/src/particles.js"></script> -->
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -1,5 +1,3 @@
-// JavaScript code for interacting with the UI
-
 // Sample student data
 var students = [];
 
@@ -11,7 +9,7 @@ function displayStudentList() {
   studentList.innerHTML = "";
 
   // Create and append list items for each student
-  students.forEach(function(student) {
+  students.forEach(function (student, index) {
     var listItem = document.createElement("li");
     listItem.classList.add("student-item");
 
@@ -19,7 +17,7 @@ function displayStudentList() {
     pictureImg.src = student.picture;
     pictureImg.alt = student.name;
     pictureImg.classList.add("student-picture");
-    pictureImg.addEventListener("click", function() {
+    pictureImg.addEventListener("click", function () {
       enlargePicture(this);
     });
     listItem.appendChild(pictureImg);
@@ -37,49 +35,15 @@ function displayStudentList() {
 
     listItem.appendChild(studentInfo);
 
+    var removeButton = document.createElement("button");
+    removeButton.innerText = "Remove";
+    removeButton.classList.add("remove-button");
+    removeButton.addEventListener("click", function () {
+      removeStudent(index);
+    });
+    listItem.appendChild(removeButton);
+
     studentList.appendChild(listItem);
-
-    //check in and out 
-const cont = document.createElement("div");
-
-// Add a class to the div
-cont.className = "my-class";
-
-// Create a <span> element
-const span = document.createElement("span");
-span.textContent = "Abcent";
-span.style.color = 'red'
-// Create an <img> element
-const image = document.createElement("img");
-image.src = "cancel.svg";
-image.className = 'check_mark'
-// Append the span and image elements to the div
-cont.appendChild(image);
-cont.appendChild(span);
-
-listItem.appendChild(cont);
-
-  //   function displayTime(){
-  //     // Create a new Date object
-  //     const currentDate = new Date();
-
-  //     // Get the current date
-  //     var date = currentDate.toLocaleDateString("en-US", {
-  //       year: "numeric",
-  //       month: "numeric",
-  //       day: "numeric"
-  //     });
-
-  //     // Get the current time
-  //     var time = currentDate.toLocaleTimeString("en-US", {
-  //       hour: "numeric",
-  //       minute: "numeric"
-  //     });
-  //     return `${date} ${time}`
-  //   }
-  // const time = document.createElement("span")
-  // time.textContent = displayTime()
-  // studentInfo.appendChild(time);
   });
 }
 
@@ -99,14 +63,14 @@ function handleFormSubmit(event) {
 
   // Create a FileReader object to read the uploaded picture
   var reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     var pictureDataURL = e.target.result;
 
     // Create a student object with the entered data
     var student = {
       picture: pictureDataURL,
       name: name,
-      number: studentNumber
+      number: studentNumber,
     };
 
     // Add the student to the students array
@@ -119,15 +83,41 @@ function handleFormSubmit(event) {
 
     // Display updated student list
     displayStudentList();
+
+    // Update students in localStorage
+    localStorage.setItem("students", JSON.stringify(students));
   };
 
   // Read the uploaded picture as a data URL
   reader.readAsDataURL(picture);
 }
 
+// Function to remove a student
+function removeStudent(index) {
+  students.splice(index, 1); // Remove student from array
+
+  // Display updated student list
+  displayStudentList();
+
+  // Update students in localStorage
+  localStorage.setItem("students", JSON.stringify(students));
+}
+
+// Retrieve students from localStorage on page load
+function retrieveStudentsFromLocalStorage() {
+  var storedStudents = localStorage.getItem("students");
+
+  if (storedStudents) {
+    students = JSON.parse(storedStudents);
+  }
+}
+
+// Attach event listener to the window load event
+window.addEventListener("load", function () {
+  retrieveStudentsFromLocalStorage();
+  displayStudentList();
+});
+
 // Attach event listener to the form submit event
 var form = document.getElementById("upload-form");
 form.addEventListener("submit", handleFormSubmit);
-
-// Display the initial student list
-displayStudentList();
