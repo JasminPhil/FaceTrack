@@ -7,7 +7,7 @@ import boto3
 import io
 from PIL import Image
 
-
+# Writing the captured students to the main panel 
 def update_capture_info(recognized_faces_list):
     capture_info.set("Capture Info:\n")
     if recognized_faces_list:
@@ -38,13 +38,16 @@ def close_camera(cap: cv2.VideoCapture):
         cap.release()
     cv2.destroyAllWindows()
 
-
+# scanning for faces. If face is detected sends a request to rekognition which checks for matches in the S3 bucket
 def scan():
     recognized_faces_list = load_recognized_faces()
+     # flag to make sure the face was present for at least 12 frames before sending request
     present = 0
+
+    #aws config/client 
     rekognition = boto3.client('rekognition', region_name="ap-northeast-2")
     bucket = "facerecsejong"
-    # Load the cascades
+    # using opencv for live face detection 
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
     def convertByteStream(faces, counter):
@@ -63,10 +66,11 @@ def scan():
             pil_img.save(stream, format="JPEG")
             image_binary = stream.getvalue()
 
+            # Get the elements in the bucket to compare the face to it 
             s3 = boto3.client('s3')
             response = s3.list_objects(Bucket=bucket)
 
-            # iterate over each object
+            # iterate over each student in the bucket 
             print("Starting iterating")
             for object in response['Contents']:
                 target_image = object['Key']
@@ -151,6 +155,7 @@ capture_info.set("Capture Info: -")
 label = tk.Label(root, textvariable=capture_info, font=("Arial", 12), pady=10, justify="left")
 label.pack()
 
+# start scan function when button is pressed
 button = tk.Button(root, text="Scan", font=("Arial", 12), width=10, command=scan)
 button.pack()
 
