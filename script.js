@@ -84,8 +84,8 @@ listItem.appendChild(cont);
 }
 // Initialize the S3 client
 var s3 = new AWS.S3({
-  accessKeyId: 'AKIA36SH4LVGGSTZU5MF',
-  secretAccessKey: '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',
+  accessKeyId: '',
+  secretAccessKey: '',
   region: 'ap-northeast-2'
 });
 
