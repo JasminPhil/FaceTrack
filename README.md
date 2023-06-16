@@ -1,6 +1,6 @@
 # FaceTrack
 
-This project allows you to track the attendance of students by uploading their images to AWS S3. Theres a desktop app that scans faces and compares them to the saved pictures in the bucket using AWS Rekognition.
+This project allows you to track the attendance of students by uploading their images to AWS S3 (branch S3upload). Theres a desktop app that scans faces and compares them to the saved pictures in the bucket using AWS Rekognition.
 
 ## Requirements
 
