@@ -13,6 +13,7 @@ This project allows you to track the attendance of students by uploading their i
 
 In order to run this project you need to confugure AWS Credentials with the necessary access rights.
 If runnung this in your own account replace the bucket name in app.py with your bucket name.
+Add your credentials to index.js.
 
 ## Run Backend
 
